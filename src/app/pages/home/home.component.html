@@ -1,0 +1,64 @@
+<!-- Hero -->
+<div
+  class="h-80 bg-image rounded-2xl mx-4 flex justify-end flex-col p-4 bg-black/40 bg-blend-color"
+>
+  <div class="mb-8 flex flex-col items-center gap-2">
+    <h3 class="text-3xl font-extrabold font-mono text-indigo-100 text-center">
+      Dubai's top properties
+    </h3>
+    <div
+      class="h-10 pl-2 w-full bg-white flex flex-row rounded-2xl items-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+        />
+      </svg>
+
+      <input class="rounded-2xl w-full h-full p-4 outline-none" />
+    </div>
+  </div>
+</div>
+<!-- Featured Listings -->
+<div class="p-4">
+  <h3 class="text-2xl font-semibold">Featured</h3>
+  <div class="flex items-center gap-4 w-full flex-wrap">
+    <div class="w-full h-fit" *ngFor="let listing of listings">
+      <div class="w-full h-52 bg-black rounded-xl"></div>
+      <div class="flex justify-between">
+        <div>
+          <h4 class="font-bold">{{ listing.title }}</h4>
+          <p>{{ listing.address }}</p>
+        </div>
+        <div class="sm">
+          <p>{{ listing.price | currency: "EUR" }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <app-listing-card *ngFor="let listing of listings" [listing]="listing"></app-listing-card> -->
+  </div>
+</div>
+
+<!-- Why us -->
+<div
+  class="m-4 rounded-2xl from-indigo-400 to-indigo-500 bg-gradient-to-br p-4"
+>
+  <h3 class="text-2xl font-semibold text-white">Why us?</h3>
+  <p class="text-white mt-2">
+    We list only the best properties in Dubai. We handpick our properties to
+    ensure that you get the best quality. We also have a team of experts that
+    will help you find the perfect property. We are here to help you.
+  </p>
+</div>
+<!-- Footer -->
+<app-footer></app-footer>
