@@ -16,10 +16,20 @@ export class AdminLandmarkPageComponent {
   landmarkForm?: FormGroup;
   imagePreview?: string;
   file: File | null = null;
+  isFileOver5mb = false;
 
   async onFileChange(event: any) {
     // If there is no target, it will return
     if (!event.target) return;
+
+    // If the file is over 5mb, it will set the isFileOver5mb to true
+    if (event.target.files[0].size > 5000000) {
+      this.isFileOver5mb = true;
+      return;
+    }
+
+    // If the file is not over 5mb, it will set the isFileOver5mb to false
+    this.isFileOver5mb = false;
 
     // Get the file from the event
     const file = event.target.files[0];
