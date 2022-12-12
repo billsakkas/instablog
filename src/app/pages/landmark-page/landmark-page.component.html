@@ -1,0 +1,64 @@
+<div class="mx-auto md:max-w-2xl" *ngIf="pageState === 1">
+  <!-- Section 1 -->
+  <div class="flex flex-col sm:flex-row sm:px-8 md:p-0">
+    <div class="shrink-0">
+      <a [href]="landmark.photo">
+        <img
+          class="h-60 w-full sm:h-full sm:w-40 sm:rounded-l-xl sm:object-cover"
+          src="{{ landmark.photo_thumb }}"
+          alt=""
+        />
+      </a>
+    </div>
+
+    <div class="p-8 sm:rounded-r-xl sm:bg-slate-100">
+      <div
+        class="text-sm font-semibold uppercase tracking-wide text-indigo-500"
+      >
+        {{ landmark.title }}
+      </div>
+      <a
+        href="{{ landmark.url }}"
+        class="mt-1 block text-lg font-medium leading-tight text-black hover:underline"
+        >{{ landmark.title }}'s website</a
+      >
+      <p class="mt-2 text-slate-500">
+        {{ landmark.short_info }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="p-8 sm:m-8 sm:rounded-lg sm:bg-slate-100 md:mx-0">
+    <div class="text-sm font-semibold uppercase tracking-wide text-indigo-500">
+      Description
+    </div>
+    <p class="mt-1 text-slate-500">
+      {{ descriptionText }}
+    </p>
+    <div class="flex items-center">
+      <button class="mx-auto" (click)="expandDescription()">
+        {{ expandButtonText }}
+      </button>
+    </div>
+  </div>
+  <!-- Section 3 -->
+  <!-- TODO: Add google maps -->
+  <!-- <iframe
+    class="mb-8 h-96 w-full rounded-lg"
+    [src]="googleMapsQuery"
+    style="border: 0"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe> -->
+
+  <iframe
+    class="mb-8 h-96 w-full rounded-lg"
+    loading="lazy"
+    style="border: 0"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen
+    [src]="googleMapsQuery"
+  ></iframe>
+</div>

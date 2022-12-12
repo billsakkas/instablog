@@ -1,0 +1,27 @@
+<div class="flex h-60 w-full flex-row">
+  <div class="w-1/4 shrink-0">
+    <a [href]="landmark.photo">
+      <img
+        class="h-full w-full object-cover sm:rounded-l-xl"
+        src="{{ landmark.photo_thumb }}"
+        alt=""
+      />
+    </a>
+  </div>
+
+  <div class="grow p-4 sm:rounded-r-xl sm:bg-slate-100">
+    <div class="text-sm font-semibold uppercase tracking-wide text-indigo-500">
+      {{ landmark.title }}
+    </div>
+    <a
+      href="{{ landmark.url }}"
+      class="mt-1 block text-lg font-medium leading-tight text-black hover:underline"
+      >{{ landmark.title }}'s website</a
+    >
+    <p
+      class="wrap mt-2 h-4/5 w-0 min-w-full overflow-hidden text-ellipsis text-slate-500"
+    >
+      {{ landmark.short_info }}
+    </p>
+  </div>
+</div>

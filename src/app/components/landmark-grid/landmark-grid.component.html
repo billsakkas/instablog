@@ -1,0 +1,12 @@
+<div class="container mx-auto mt-4">
+  <h3 class="text-2xl font-semibold">{{ title }}</h3>
+  <div class="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+    <a
+      class=""
+      *ngFor="let landmark of landmarks"
+      [routerLink]="[url, landmark.id]"
+    >
+      <app-landmark-card class="" [landmark]="landmark"></app-landmark-card>
+    </a>
+  </div>
+</div>

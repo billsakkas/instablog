@@ -1,0 +1,29 @@
+<div>
+  <app-landmark-grid
+    [landmarks]="landmarks"
+    [title]="'All landmarks'"
+    [url]="'landmark'"
+  ></app-landmark-grid>
+  <!-- floating button down right screen -->
+  <div class="fixed bottom-4 right-4">
+    <a
+      routerLink="landmark/new"
+      class="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-500 text-white"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1"
+        stroke="currentColor"
+        class="h-12 w-12"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+        />
+      </svg>
+    </a>
+  </div>
+</div>

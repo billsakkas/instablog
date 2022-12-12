@@ -1,64 +1,148 @@
-<!-- Hero -->
-<div
-  class="h-80 bg-image rounded-2xl mx-4 flex justify-end flex-col p-4 bg-black/40 bg-blend-color"
->
-  <div class="mb-8 flex flex-col items-center gap-2">
-    <h3 class="text-3xl font-extrabold font-mono text-indigo-100 text-center">
-      Dubai's top properties
-    </h3>
-    <div
-      class="h-10 pl-2 w-full bg-white flex flex-row rounded-2xl items-center"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-        />
-      </svg>
-
-      <input class="rounded-2xl w-full h-full p-4 outline-none" />
-    </div>
-  </div>
-</div>
-<!-- Featured Listings -->
 <div class="p-4">
-  <h3 class="text-2xl font-semibold">Featured</h3>
-  <div class="flex items-center gap-4 w-full flex-wrap">
-    <div class="w-full h-fit" *ngFor="let listing of listings">
-      <div class="w-full h-52 bg-black rounded-xl"></div>
-      <div class="flex justify-between">
-        <div>
-          <h4 class="font-bold">{{ listing.title }}</h4>
-          <p>{{ listing.address }}</p>
-        </div>
-        <div class="sm">
-          <p>{{ listing.price | currency: "EUR" }}</p>
-        </div>
+  <!-- Hero -->
+  <div
+    class="bg-image container mx-auto flex flex-col justify-end rounded-2xl bg-black/40 p-4 bg-blend-color"
+    style="height: 30vh"
+  >
+    <div class="mb-8 flex flex-col items-center gap-2">
+      <h3 class="text-center text-3xl font-semibold text-indigo-100">
+        Dubai's landmarks
+      </h3>
+      <div
+        class="flex h-10 w-3/5 flex-row items-center rounded-2xl bg-white pl-2 sm:w-96"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="h-6 w-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+          />
+        </svg>
+
+        <input
+          class="h-full grow rounded-2xl border-none p-4 outline-none focus:border-none focus:outline-none sm:w-1/2"
+          type="text"
+          placeholder="Search for landmarks"
+          name="searchInput"
+          [formControl]="searchInput"
+          (keydown.enter)="search()"
+        />
       </div>
     </div>
+  </div>
 
-    <!-- <app-listing-card *ngFor="let listing of listings" [listing]="listing"></app-listing-card> -->
+  <!-- Not searching -->
+  <div *ngIf="searchState === 0">
+    <app-landmark-grid
+      [landmarks]="popularLandmarks"
+      [title]="'Popular landmarks'"
+      [url]="'/landmark'"
+    ></app-landmark-grid>
+  </div>
+
+  <div
+    role="status"
+    class="container m-auto mt-4 animate-pulse space-y-8 md:flex md:items-center md:space-y-0 md:space-x-8"
+    *ngIf="searchState === 1"
+  >
+    <div
+      class="flex h-48 w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700 sm:w-96"
+    >
+      <svg
+        class="h-12 w-12 text-gray-200"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 640 512"
+      >
+        <path
+          d="M480 80C480 35.82 515.8 0 560 0C604.2 0 640 35.82 640 80C640 124.2 604.2 160 560 160C515.8 160 480 124.2 480 80zM0 456.1C0 445.6 2.964 435.3 8.551 426.4L225.3 81.01C231.9 70.42 243.5 64 256 64C268.5 64 280.1 70.42 286.8 81.01L412.7 281.7L460.9 202.7C464.1 196.1 472.2 192 480 192C487.8 192 495 196.1 499.1 202.7L631.1 419.1C636.9 428.6 640 439.7 640 450.9C640 484.6 612.6 512 578.9 512H55.91C25.03 512 .0006 486.1 .0006 456.1L0 456.1z"
+        />
+      </svg>
+    </div>
+    <div class="w-full" style="margin-top: 0.5rem">
+      <div class="h-2.5 w-24 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+      <div
+        class="mt-2 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700"
+      ></div>
+      <div
+        class="mt-2 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700"
+      ></div>
+      <div
+        class="mt-2 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700"
+      ></div>
+    </div>
+    <span class="sr-only">Loading...</span>
+  </div>
+
+  <!-- Search results -->
+  <div *ngIf="searchState === 2">
+    <div class="container mx-auto mt-4">
+      <h3 class="text-2xl font-semibold">
+        Results - {{ searchedLandmarks.length }}
+      </h3>
+      <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
+        <a
+          class="w-full"
+          *ngFor="let landmark of searchedLandmarks"
+          [routerLink]="['/landmark', landmark.id]"
+        >
+          <app-landmark-card
+            class="h-fit w-full"
+            [landmark]="landmark"
+          ></app-landmark-card>
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- Not found -->
+  <div *ngIf="searchState === 3" class="mt-4 flex flex-col items-center gap-2">
+    <!-- Red cross -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="h-24 w-24 text-red-500"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M6 18L18 6M6 6l12 12"
+      />
+    </svg>
+
+    <h3 class="text-center text-3xl font-semibold">No landmarks found</h3>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="searchState === 4" class="mt-4 flex flex-col items-center gap-2">
+    <!-- Yellow exclamation mark in triangle -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="h-24 w-24 text-yellow-500"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+      />
+    </svg>
+
+    <h3 class="text-center text-3xl font-semibold">
+      {{ friendlyErrorMessage }}
+    </h3>
   </div>
 </div>
-
-<!-- Why us -->
-<div
-  class="m-4 rounded-2xl from-indigo-400 to-indigo-500 bg-gradient-to-br p-4"
->
-  <h3 class="text-2xl font-semibold text-white">Why us?</h3>
-  <p class="text-white mt-2">
-    We list only the best properties in Dubai. We handpick our properties to
-    ensure that you get the best quality. We also have a team of experts that
-    will help you find the perfect property. We are here to help you.
-  </p>
-</div>
-<!-- Footer -->
-<app-footer></app-footer>
